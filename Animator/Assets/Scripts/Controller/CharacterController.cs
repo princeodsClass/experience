@@ -1,8 +1,13 @@
+using System.Collections;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    FloatingJoystick _floatingJoystick = null;
+    [SerializeField]
+    GameManager _gameManager;
+
+    [SerializeField]
+    FloatingJoystick _floatingJoystick;
 
     Animator _animator = null;
     Rigidbody _rigidbody = null;
@@ -10,13 +15,10 @@ public class CharacterController : MonoBehaviour
     Vector3 _direction = Vector3.zero;
 
     float _fRunSpeed = 5.5f;
-
     bool _isGround, _isBlock;
 
     private void Awake()
     {
-        _floatingJoystick = FindObjectOfType<FloatingJoystick>();
-
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
     }
@@ -68,5 +70,14 @@ public class CharacterController : MonoBehaviour
                                   LayerMask.GetMask("Structure"));
 
         CharacterMove();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if ( _gameManager.GetTarget() == other.gameObject )
+        {
+            int obtainpoint = other.GetComponent<NPCController>().GetPoint();
+            _gameManager.AddScore(obtainpoint);
+        }
     }
 }

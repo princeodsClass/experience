@@ -7,16 +7,9 @@ using UnityEngine.EventSystems;
 public class FloatingJoystick : Joystick
 {
 	[SerializeField] private Image _imgHandleDirection = null;
+	[SerializeField] private GameObject _goDesc;
 
-	CharacterController _characterController;
-
-    private void Awake()
-    {
-		_characterController = FindObjectOfType<CharacterController>();
-	}
-
-
-    protected override void Start()
+	protected override void Start()
 	{
 		base.Start();
 		SetView(false);
@@ -51,5 +44,6 @@ public class FloatingJoystick : Joystick
 	void SetView(bool state)
     {
 		background.gameObject.SetActive(state);
+		_goDesc.SetActive(!state);
 	}
 }

@@ -11,4 +11,16 @@ public static class ComUtil
 	{
 		return standard.x.AlmostEquals(target.x) && standard.y.AlmostEquals(target.y);
 	}
+
+	static public void DestroyChildren(this Transform tf)
+	{
+		while (0 != tf.childCount)
+		{
+			Transform tfChild = tf.GetChild(0);
+			tfChild.SetParent(null);
+
+			if (null != tfChild.gameObject)
+				GameObject.Destroy(tfChild.gameObject);
+		}
+	}
 }
