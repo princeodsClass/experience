@@ -80,6 +80,8 @@ public partial class PageBattle : MonoBehaviour
 			slot.GetComponent<SlotBoard>().SetTime(_stHistory[i].nEventTime);
 			slot.GetComponent<SlotBoard>().SetScore(_stHistory[i].nPoint);
 		}
+
+		LayoutRebuilder.ForceRebuildLayoutImmediate(_tHistoryRoot.GetComponent<RectTransform>());
 	}
 
 	public int GetElapedTime()
