@@ -608,6 +608,7 @@ MonoBehaviour:
   _tCharacter: {fileID: 0}
   _fCamHeight: 10
   _fCamForward: -10
+  _isAuto: 1
   _isBack: 0
 --- !u!1 &704318911
 GameObject:
@@ -813,10 +814,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 514608987}
     m_Modifications:
+    - target: {fileID: 690013422728715280, guid: 321f916444ddb7b40abddf590a0f4268,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2186289099839550836, guid: 321f916444ddb7b40abddf590a0f4268,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -232.21507
       objectReference: {fileID: 0}
     - target: {fileID: 2186289099839550836, guid: 321f916444ddb7b40abddf590a0f4268,
         type: 3}
@@ -826,6 +832,16 @@ PrefabInstance:
     - target: {fileID: 5668651752498901368, guid: 321f916444ddb7b40abddf590a0f4268,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566251736348887592, guid: 321f916444ddb7b40abddf590a0f4268,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813365845061873039, guid: 321f916444ddb7b40abddf590a0f4268,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7477813056771864829, guid: 321f916444ddb7b40abddf590a0f4268,
@@ -1185,6 +1201,12 @@ PrefabInstance:
       propertyPath: _gameManager
       value: 
       objectReference: {fileID: 153152035}
+    - target: {fileID: 1788397580800651434, guid: 943ee30d15686174a8b629abbb79fabf,
+        type: 3}
+      propertyPath: _goFootStepFX
+      value: 
+      objectReference: {fileID: 8476038826942543996, guid: 1685ee6f530796e4a807b771531bb15f,
+        type: 3}
     - target: {fileID: 1788397580800651434, guid: 943ee30d15686174a8b629abbb79fabf,
         type: 3}
       propertyPath: _floatingJoystick

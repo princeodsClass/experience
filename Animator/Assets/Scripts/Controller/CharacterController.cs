@@ -9,6 +9,9 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     FloatingJoystick _floatingJoystick;
 
+    [SerializeField]
+    GameObject _goFootStepFX, _goLandFX, _goGetTargetFX;
+
     Animator _animator = null;
     Rigidbody _rigidbody = null;
 
@@ -23,12 +26,33 @@ public class CharacterController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void Footstep(Object prefab)
+    public void Footstep()
     {
+        if (null != _goFootStepFX && _floatingJoystick.Direction.magnitude > 0.5f)
+            CreateFX(_goFootStepFX, transform.position, 1.5f);
     }
 
-    public void Land(Object prefab)
+    public void Land()
     {
+        CreateFX(_goLandFX, transform.position, 1.5f);
+    }
+
+    void CreateFX(GameObject go, Vector3 position, float dtime)
+    { 
+        GameObject fx = Instantiate(go, position, transform.rotation);
+
+        ParticleSystem particle = fx.GetComponentInChildren<ParticleSystem>();
+        particle?.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        particle?.Play(true);
+
+        StartCoroutine(DestroyFX(fx, dtime));
+    }
+
+    IEnumerator DestroyFX(GameObject go, float dtime)
+    {
+        yield return new WaitForSecondsRealtime(dtime); ;
+
+        Destroy(go);
     }
 
     void CharacterMove()
@@ -76,6 +100,8 @@ public class CharacterController : MonoBehaviour
     {
         if ( _gameManager.GetTarget() == other.gameObject )
         {
+            CreateFX(_goGetTargetFX, other.transform.position, 2.5f);
+
             int obtainpoint = other.GetComponent<NPCController>().GetPoint();
             _gameManager.AddScore(obtainpoint);
         }

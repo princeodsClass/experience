@@ -1357,3 +1357,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 0}
   _floatingJoystick: {fileID: 0}
+  _goFootStepFX: {fileID: 8476038826942543996, guid: 1685ee6f530796e4a807b771531bb15f,
+    type: 3}
+  _goLandFX: {fileID: 2373975630367709250, guid: 115ccfc1c1a218347bb41484a6ea2dea,
+    type: 3}
+  _goGetTargetFX: {fileID: 1247041532771308, guid: 59b2149974e169c4ea4387e7322c9c91,
+    type: 3}
