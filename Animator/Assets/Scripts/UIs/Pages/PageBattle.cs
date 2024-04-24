@@ -75,13 +75,11 @@ public partial class PageBattle : MonoBehaviour
 		for ( int i = 0; i < _stHistory.Count; i++ )
         {
 			slot = Instantiate(_goSlotBoard);
-			slot.transform.SetParent(_tHistoryRoot);
+			slot.transform.SetParent(_tHistoryRoot, false);
 			slot.GetComponent<SlotBoard>().SetName(_stHistory[i].sName);
 			slot.GetComponent<SlotBoard>().SetTime(_stHistory[i].nEventTime);
 			slot.GetComponent<SlotBoard>().SetScore(_stHistory[i].nPoint);
 		}
-
-		LayoutRebuilder.ForceRebuildLayoutImmediate(_tHistoryRoot.GetComponent<RectTransform>());
 	}
 
 	public int GetElapedTime()
