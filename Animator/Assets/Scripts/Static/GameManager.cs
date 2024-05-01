@@ -16,13 +16,11 @@ public class GameManager : MonoBehaviour
 
 	PageBattle _pageBattle;
 	GameObject _goTarget;
-	UIManager _uiManager;
 
 	st_History _stHistory;
 	List<st_History> _liHistory = new List<st_History>();
 
 	public TargetController _targetController;
-	public GameStateSubject _gameStateSubject = new GameStateSubject();
 
 	int _nTotalScore = 0;
 
@@ -40,16 +38,6 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			Destroy(gameObject);
-		}
-	}
-
-    private void Start()
-    {
-		_uiManager = FindObjectOfType<UIManager>();
-
-		if (_uiManager != null)
-		{
-			_gameStateSubject.GameStateChanged += _uiManager.OnGameStateChange;
 		}
 	}
 
@@ -99,12 +87,6 @@ public class GameManager : MonoBehaviour
     {
 		_targetController.ClearTargets();
 	}
-
-	public void SetGameState(GameState newState)
-	{
-		_gameStateSubject.CurrentGameState = newState;
-	}
-
 
 	public int GetTotalScore()
     {

@@ -34,25 +34,10 @@ public partial class PageBattle : MonoBehaviour
 	void Awake()
 	{
 		_gameManager = GameManager.Singleton;
-		OnGameStateChange(GameState.Play);
+		SetGameState(GameState.Play);
 		_txtCounter.gameObject.SetActive(false);
 
 		_gameManager.AddScore();
-	}
-
-    private void Start()
-    {
-		_gameManager._gameStateSubject.GameStateChanged += OnGameStateChange;
-	}
-
-	void OnDestroy()
-	{
-		_gameManager._gameStateSubject.GameStateChanged -= OnGameStateChange;
-	}
-
-	void OnGameStateChange(GameState newState)
-	{
-		SetGameState(newState);
 	}
 
 	void Initialize()
@@ -114,7 +99,7 @@ public partial class PageBattle : MonoBehaviour
 			_nRemainTime += 1;
         }
 
-		OnGameStateChange(GameState.Result);
+		SetGameState(GameState.Result);
 	}
 
 	public IEnumerator StartCounter(int time, Action callback = null)
