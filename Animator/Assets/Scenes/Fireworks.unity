@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 226345357}
   - component: {fileID: 226345356}
   - component: {fileID: 226345359}
+  - component: {fileID: 226345360}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -260,6 +261,18 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &226345360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226345355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da1b7dd3436f7b34e847475aa2448da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &241387660
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,28 +469,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _asBGM: {fileID: 823124621}
   _phases:
-  - _fStartTime: 0
-    _pFireworks: []
-  - _fStartTime: 48.7
+  - _fStartTime: 13
     _pFireworks:
     - {fileID: 19800006, guid: 0776d3db1f69d214083310f793f1fde2, type: 3}
-  - _fStartTime: 78
+  - _fStartTime: 48.7
     _pFireworks:
     - {fileID: 198273574256830164, guid: a60ae2d1790723c44a051807d3b2181d, type: 3}
-  - _fStartTime: 0
-    _pFireworks: []
-  - _fStartTime: 0
-    _pFireworks: []
-  - _fStartTime: 0
-    _pFireworks: []
-  - _fStartTime: 0
-    _pFireworks: []
-  - _fStartTime: 0
-    _pFireworks: []
-  - _fStartTime: 0
-    _pFireworks: []
-  - _fStartTime: 0
-    _pFireworks: []
+  - _fStartTime: 78
+    _pFireworks:
+    - {fileID: 2425361428160306462, guid: 8c9d3e13083c52c48baf3df30c72f1ef, type: 3}
+  - _fStartTime: 84
+    _pFireworks:
+    - {fileID: 198932185141590714, guid: ca08486926465a647b8ebf1439d3e033, type: 3}
+    - {fileID: 198273574256830164, guid: ccd2a371867bee2409c107eb93d5c79d, type: 3}
+  - _fStartTime: 116
+    _pFireworks:
+    - {fileID: 19800010, guid: c5b893a31acbf5848a22a5ca94900b19, type: 3}
+  - _fStartTime: 133
+    _pFireworks:
+    - {fileID: 19800002, guid: bc79228b0ab3b5043bc858c182cf001b, type: 3}
+  - _fStartTime: 149
+    _pFireworks:
+    - {fileID: 19833426, guid: 3baf654de2c48c3428f1055dc88d4398, type: 3}
+  - _fStartTime: 184
+    _pFireworks:
+    - {fileID: 19866698, guid: b0b429f8e55f4fc4094a9508120a1a38, type: 3}
+    - {fileID: 198273574256830164, guid: a60ae2d1790723c44a051807d3b2181d, type: 3}
+  - _fStartTime: 217.6
+    _pFireworks:
+    - {fileID: 19800006, guid: 0776d3db1f69d214083310f793f1fde2, type: 3}
+  - _fStartTime: 246
+    _pFireworks:
+    - {fileID: 198273574256830164, guid: a60ae2d1790723c44a051807d3b2181d, type: 3}
 --- !u!1 &723695502
 GameObject:
   m_ObjectHideFlags: 0

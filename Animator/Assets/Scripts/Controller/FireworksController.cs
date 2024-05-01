@@ -24,7 +24,7 @@ public class FireworksController : MonoBehaviour
 
     IEnumerator Show(float time)
     {
-        yield return new WaitForSecondsRealtime(time);
+        yield return new WaitForSecondsRealtime(time + 10);
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
