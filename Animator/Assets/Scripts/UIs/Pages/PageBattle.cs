@@ -9,8 +9,8 @@ using TMPro;
 public partial class PageBattle : MonoBehaviour
 {
 	[Header("Page Root")]
-	[SerializeField] GameObject _goPlay;			// 게임 진행 중 사용할 ui
-	[SerializeField] GameObject _goResult;			// 결과 ui
+	[SerializeField] GameObject _goPlay;
+	[SerializeField] GameObject _goResult;
 
 	[Header("Play UIs")]
 	[SerializeField] GameObject _goTarget, _goScore, _goRenderTexture;
@@ -25,28 +25,40 @@ public partial class PageBattle : MonoBehaviour
 	[SerializeField] TextMeshProUGUI _txtResultScore;
 	[SerializeField] GameObject _goSlotBoard;
 
-	public enum GameState
-    {
-		Play,
-		Result,
-    }
-
 	GameState _gameState;
 
-	GameManager _gameManager = null;
-	Coroutine _coTimer = null;
+	GameManager _gameManager;
 
 	int _nTime, _nRemainTime;
 
 	void Awake()
 	{
-		SetGameState(GameState.Play);
+		_gameManager = GameManager.Singleton;
+		OnGameStateChange(GameState.Play);
 		_txtCounter.gameObject.SetActive(false);
+
+		_gameManager.AddScore();
+	}
+
+    private void Start()
+    {
+		_gameManager._gameStateSubject.GameStateChanged += OnGameStateChange;
+	}
+
+	void OnDestroy()
+	{
+		_gameManager._gameStateSubject.GameStateChanged -= OnGameStateChange;
+	}
+
+	void OnGameStateChange(GameState newState)
+	{
+		SetGameState(newState);
 	}
 
 	void Initialize()
     {
-		if ( null == _gameManager ) _gameManager = FindObjectOfType<GameManager>();
+		_gameManager.Initialize();
+
 		_nTime = _gameManager.GetPlayTime();
 
 		Time.timeScale = _gameState == GameState.Play ? 1f : 0f;
@@ -57,20 +69,19 @@ public partial class PageBattle : MonoBehaviour
 		_nRemainTime = 0;
 	
 		if ( GameState.Play == _gameState )
-			_coTimer = StartCoroutine(StartTimer());
+			StartCoroutine(StartTimer());
 		else if ( GameState.Result == _gameState )
 			SetResult();
-
 	}
 
 	void SetResult()
     {
 		GameObject slot = default;
-		List<GameManager.st_History> _stHistory = _gameManager.GetHistory();
+		List<GameManager.st_History> _stHistory = GameManager.Singleton.GetHistory();
 
 		ComUtil.DestroyChildren(_tHistoryRoot);
 
-		_txtResultScore.text = $"Score : {_gameManager.GetTotalScore()}";
+		_txtResultScore.text = $"Score : {GameManager.Singleton.GetTotalScore()}";
 
 		for ( int i = 0; i < _stHistory.Count; i++ )
         {
@@ -103,7 +114,7 @@ public partial class PageBattle : MonoBehaviour
 			_nRemainTime += 1;
         }
 
-		SetGameState(GameState.Result);
+		OnGameStateChange(GameState.Result);
 	}
 
 	public IEnumerator StartCounter(int time, Action callback = null)
@@ -119,7 +130,6 @@ public partial class PageBattle : MonoBehaviour
 			time -= 1;
 
 			yield return onesecond;
-			_animatorCounter.ResetTrigger("Pump");
 		}
 
 		_txtCounter.gameObject.SetActive(false);
@@ -138,7 +148,7 @@ public partial class PageBattle : MonoBehaviour
 		Vector3 directionNormalize = (UnityEngine.Random.insideUnitSphere * 2f - Vector3.one).normalized;
 		directionNormalize.y = Mathf.Abs(directionNormalize.y);
 
-		Vector3 root = _gameManager.GetTarget().transform.position + Vector3.up * 1.5f;
+		Vector3 root = GameManager.Singleton.GetTarget().transform.position + Vector3.up * 1.5f;
 		_camModelCamera.transform.position = root + directionNormalize * _fModelCameraDistance; ;
 		_camModelCamera.transform.LookAt(root);
 	}

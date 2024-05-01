@@ -4,9 +4,6 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField]
-    GameManager _gameManager;
-
-    [SerializeField]
     FloatingJoystick _floatingJoystick;
 
     [SerializeField]
@@ -98,12 +95,12 @@ public class CharacterController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ( _gameManager.GetTarget() == other.gameObject )
+        if ( GameManager.Singleton.GetTarget() == other.gameObject )
         {
             CreateFX(_goGetTargetFX, other.transform.position, 2.5f);
 
             int obtainpoint = other.GetComponent<NPCController>().GetPoint();
-            _gameManager.AddScore(obtainpoint);
+            GameManager.Singleton.AddScore(obtainpoint);
         }
     }
 }
