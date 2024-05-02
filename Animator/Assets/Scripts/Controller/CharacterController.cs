@@ -9,6 +9,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     GameObject _goFootStepFX, _goLandFX, _goGetTargetFX;
 
+    GameManager _gameManager;
     Animator _animator = null;
     Rigidbody _rigidbody = null;
 
@@ -19,6 +20,8 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
+        if ( null == _gameManager ) _gameManager = GameManager.GetInstance;
+
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
     }
@@ -95,12 +98,12 @@ public class CharacterController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ( GameManager.Singleton.GetTarget() == other.gameObject )
+        if (_gameManager.GetTarget() == other.gameObject )
         {
             CreateFX(_goGetTargetFX, other.transform.position, 2.5f);
 
             int obtainpoint = other.GetComponent<NPCController>().GetPoint();
-            GameManager.Singleton.AddScore(obtainpoint);
+            _gameManager.AddScore(obtainpoint);
         }
     }
 }

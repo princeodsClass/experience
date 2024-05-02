@@ -33,7 +33,7 @@ public partial class PageBattle : MonoBehaviour
 
 	void Awake()
 	{
-		_gameManager = GameManager.Singleton;
+		_gameManager = GameManager.GetInstance;
 		SetGameState(GameState.Play);
 		_txtCounter.gameObject.SetActive(false);
 
@@ -62,11 +62,11 @@ public partial class PageBattle : MonoBehaviour
 	void SetResult()
     {
 		GameObject slot = default;
-		List<GameManager.st_History> _stHistory = GameManager.Singleton.GetHistory();
+		List<GameManager.st_History> _stHistory = _gameManager.GetHistory();
 
 		ComUtil.DestroyChildren(_tHistoryRoot);
 
-		_txtResultScore.text = $"Score : {GameManager.Singleton.GetTotalScore()}";
+		_txtResultScore.text = $"Score : {_gameManager.GetTotalScore()}";
 
 		for ( int i = 0; i < _stHistory.Count; i++ )
         {
@@ -133,7 +133,7 @@ public partial class PageBattle : MonoBehaviour
 		Vector3 directionNormalize = (UnityEngine.Random.insideUnitSphere * 2f - Vector3.one).normalized;
 		directionNormalize.y = Mathf.Abs(directionNormalize.y);
 
-		Vector3 root = GameManager.Singleton.GetTarget().transform.position + Vector3.up * 1.5f;
+		Vector3 root = _gameManager.GetTarget().transform.position + Vector3.up * 1.5f;
 		_camModelCamera.transform.position = root + directionNormalize * _fModelCameraDistance; ;
 		_camModelCamera.transform.LookAt(root);
 	}

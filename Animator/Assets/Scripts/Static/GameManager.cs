@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
 	int _nTotalScore = 0;
 
-	public static GameManager Singleton;
+	private static GameManager Singleton;
 
 	private GameManager() { }
 
