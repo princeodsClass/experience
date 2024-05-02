@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed = 7f;
     public float rotationSpeed = 2f;
-
-
-    private void Awake()
-    {
-        transform.LookAt(Vector3.zero + Vector3.up * 70);
-    }
 
     void Update()
     {

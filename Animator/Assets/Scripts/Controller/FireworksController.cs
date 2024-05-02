@@ -56,7 +56,6 @@ public class FireworksController : MonoBehaviour
             _liParticlaList.Add(particleSystemObj);
             particleSystemObj.GetComponent<ParticleSystem>().Play();
         }
-            
     }
 }
 
