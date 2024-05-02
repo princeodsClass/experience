@@ -18,11 +18,11 @@ public class FireworksController : MonoBehaviour
             _asBGM.Play();
         }
 
-        StartCoroutine(Show(_asBGM.clip.length));
+        StartCoroutine(PlayBGM(_asBGM.clip.length));
         StartCoroutine(PlayPhases());
     }
 
-    IEnumerator Show(float time)
+    IEnumerator PlayBGM(float time)
     {
         yield return new WaitForSecondsRealtime(time + 10);
 
