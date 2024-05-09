@@ -28,16 +28,20 @@ public partial class PageBattle : MonoBehaviour
 	GameState _gameState;
 
 	GameManager _gameManager;
+	GameAudioManager _audioManager;
 
 	int _nTime, _nRemainTime;
 
 	void Awake()
 	{
-		_gameManager = GameManager.GetInstance;
+		if ( null == _gameManager ) _gameManager = GameManager.GetInstance;
+		if ( null == _audioManager) _audioManager = GameAudioManager.Singleton;
+
 		SetGameState(GameState.Play);
 		_txtCounter.gameObject.SetActive(false);
 
 		_gameManager.AddScore();
+		_audioManager.PlayBGM("Audios/BGMs/InGame");
 	}
 
 	void Initialize()
@@ -73,7 +77,6 @@ public partial class PageBattle : MonoBehaviour
 			slot = Instantiate(_goSlotBoard);
 			slot.transform.SetParent(_tHistoryRoot, false);
 			slot.GetComponent<SlotBoard>().SetName(_stHistory[i].sName);
-			slot.GetComponent<SlotBoard>().SetTime(_stHistory[i].nEventTime);
 			slot.GetComponent<SlotBoard>().SetScore(_stHistory[i].nPoint);
 		}
 	}

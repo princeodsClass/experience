@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour
@@ -9,9 +10,20 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     GameObject _goFootStepFX, _goLandFX, _goGetTargetFX;
 
+    [SerializeField]
+    List<AudioClip> _acRunSoundList = new List<AudioClip>();
+
+    [SerializeField]
+    List<AudioClip> _acWalkSoundList = new List<AudioClip>();
+
+    [SerializeField]
+    List<AudioClip> _acLandSoundList = new List<AudioClip>();
+
     GameManager _gameManager;
+    GameAudioManager _audioManager;
     Animator _animator = null;
     Rigidbody _rigidbody = null;
+    AudioClip _acMoveSound = null;
 
     Vector3 _direction = Vector3.zero;
 
@@ -21,6 +33,7 @@ public class CharacterController : MonoBehaviour
     private void Awake()
     {
         if ( null == _gameManager ) _gameManager = GameManager.GetInstance;
+        if (null == _audioManager) _audioManager = GameAudioManager.Singleton;
 
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
@@ -29,12 +42,24 @@ public class CharacterController : MonoBehaviour
     public void Footstep()
     {
         if (null != _goFootStepFX && _floatingJoystick.Direction.magnitude > 0.5f)
+        {
             CreateFX(_goFootStepFX, transform.position, 1.5f);
+
+            _acMoveSound = _floatingJoystick.Direction.magnitude > 0.5f ?
+                           _acRunSoundList[Random.Range(0, _acRunSoundList.Count)] :
+                           _acWalkSoundList[Random.Range(0, _acWalkSoundList.Count)];
+
+            CreateSFX(_acMoveSound);
+        }
     }
 
     public void Land()
     {
         CreateFX(_goLandFX, transform.position, 1.5f);
+
+        _acMoveSound = _acLandSoundList[Random.Range(0, _acLandSoundList.Count)];
+
+        CreateSFX(_acMoveSound);
     }
 
     void CreateFX(GameObject go, Vector3 position, float dtime)
@@ -46,6 +71,12 @@ public class CharacterController : MonoBehaviour
         particle?.Play(true);
 
         StartCoroutine(DestroyFX(fx, dtime));
+    }
+
+    void CreateSFX(AudioClip clip)
+    {
+        if (null != clip)
+            _audioManager.PlaySFX3D(clip, transform.position);
     }
 
     IEnumerator DestroyFX(GameObject go, float dtime)

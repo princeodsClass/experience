@@ -1,3 +1,4 @@
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
 	public TargetController _targetController;
 
 	int _nTotalScore = 0;
+	string _sScorePath;
+	SortedDictionary<int, string> _scores = new SortedDictionary<int, string>();
 
 	private static GameManager Singleton;
 
@@ -39,6 +42,8 @@ public class GameManager : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
+
+		_sScorePath = Path.Combine(Application.persistentDataPath, "score_data.csv");
 	}
 
     public static GameManager GetInstance
@@ -127,4 +132,38 @@ public class GameManager : MonoBehaviour
     {
 		return _liHistory;
     }
+
+	public void SaveScore(string name, int score)
+	{
+		_scores.Add(score, name);
+
+		using (StreamWriter writer = new StreamWriter(_sScorePath))
+		{
+			foreach (KeyValuePair<int, string> kvp in _scores)
+			{
+				writer.WriteLine(kvp.Value + "," + kvp.Key);
+			}
+		}
+	}
+
+	public SortedDictionary<int, string> LoadScores()
+	{
+		_scores.Clear();
+
+		using (StreamReader reader = new StreamReader(_sScorePath))
+		{
+			string line;
+			while ((line = reader.ReadLine()) != null)
+			{
+				string[] parts = line.Split(',');
+				string playerName = parts[0];
+				int score = int.Parse(parts[1]);
+
+				// 스코어를 SortedDictionary에 추가
+				_scores.Add(score, playerName);
+			}
+		}
+
+		return _scores;
+	}
 }

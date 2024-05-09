@@ -1355,7 +1355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2260637849f0fca43a28e17379857899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 0}
   _floatingJoystick: {fileID: 0}
   _goFootStepFX: {fileID: 8476038826942543996, guid: 1685ee6f530796e4a807b771531bb15f,
     type: 3}
@@ -1363,3 +1362,21 @@ MonoBehaviour:
     type: 3}
   _goGetTargetFX: {fileID: 1247041532771308, guid: 59b2149974e169c4ea4387e7322c9c91,
     type: 3}
+  _acRunSoundList:
+  - {fileID: 8300000, guid: 5468cba88d0bd3647bb3835b2dfcb284, type: 3}
+  - {fileID: 8300000, guid: d46174eb24636e44e9cda84caf8336d0, type: 3}
+  - {fileID: 8300000, guid: b347e5de4988a744ca6ea81ec8254f70, type: 3}
+  - {fileID: 8300000, guid: 2a1e32b6071645b4fb468dc2bf8c052f, type: 3}
+  - {fileID: 8300000, guid: 55d0d60c5acaf4f45af50b0f19306dfe, type: 3}
+  _acWalkSoundList:
+  - {fileID: 8300000, guid: f3e6490e5dfd44e4fb41aa890ed70abc, type: 3}
+  - {fileID: 8300000, guid: 9388ee32ed615ab4d9751a6d00eb86bb, type: 3}
+  - {fileID: 8300000, guid: 14d6ac1e78fa9204487f3f460af15514, type: 3}
+  - {fileID: 8300000, guid: 276ce7335f3e5854094dd09309a02bc2, type: 3}
+  - {fileID: 8300000, guid: c890658be4a41c84788cebac171ac319, type: 3}
+  _acLandSoundList:
+  - {fileID: 8300000, guid: 81eb211a9ee43eb49a38407516434842, type: 3}
+  - {fileID: 8300000, guid: 0c5d7f19280565c48bf80ae85324f82f, type: 3}
+  - {fileID: 8300000, guid: 220931c1d6de8c840ae7a668edf46fde, type: 3}
+  - {fileID: 8300000, guid: 8282e6dcf94c7744ea69a462cbedfe1c, type: 3}
+  - {fileID: 8300000, guid: 335807a0fa03d894a856c9250b2e5ba1, type: 3}
