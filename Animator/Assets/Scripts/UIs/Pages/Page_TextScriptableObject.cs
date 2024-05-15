@@ -1,15 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Page_TextPlayerPrefs : MonoBehaviour
+public class Page_TextScriptableObject : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _txtNameInputTitle, _txtName;
     [SerializeField] TextMeshProUGUI _txtAgeInputTitle, _txtAge;
     [SerializeField] TextMeshProUGUI _txtHeightInputTitle, _txtHeight;
+    [SerializeField] TextMeshProUGUI _txtUpdateTime;
     [SerializeField] TMP_InputField _ifName, _ifAge, _ifHeight;
+
+    public TestScriptableObject _soRepository;
 
     private void Awake()
     {
@@ -23,6 +25,7 @@ public class Page_TextPlayerPrefs : MonoBehaviour
         _ifName.text = string.Empty;
         _ifAge.text = string.Empty;
         _ifHeight.text = string.Empty;
+        _txtUpdateTime.text = string.Empty;
     }
 
     void SetOutputField(bool state)
@@ -30,12 +33,14 @@ public class Page_TextPlayerPrefs : MonoBehaviour
         _txtName.gameObject.SetActive(state);
         _txtAge.gameObject.SetActive(state);
         _txtHeight.gameObject.SetActive(state);
+        _txtUpdateTime.gameObject.SetActive(state);
     }
 
     public void OnChangeName()
     {
-        PlayerPrefs.SetString("name", _ifName.text);
+        _soRepository._sName = _ifName.text;
         _ifName.text = string.Empty;
+        RecordUpdateTime();
         SetOutputField(false);
     }
 
@@ -43,8 +48,9 @@ public class Page_TextPlayerPrefs : MonoBehaviour
     {
         if ( int.TryParse(_ifAge.text, out int result) )
         {
-            PlayerPrefs.SetInt("age", result);
+            _soRepository._nAge = result;
             _ifAge.text = string.Empty;
+            RecordUpdateTime();
             SetOutputField(false);
         }
         else
@@ -58,8 +64,9 @@ public class Page_TextPlayerPrefs : MonoBehaviour
     {
         if (float.TryParse(_ifHeight.text, out float result))
         {
-            PlayerPrefs.SetFloat("height", result);
+            _soRepository._fHeight = result;
             _ifHeight.text = string.Empty;
+            RecordUpdateTime();
             SetOutputField(false);
         }
         else
@@ -69,17 +76,23 @@ public class Page_TextPlayerPrefs : MonoBehaviour
         }
     }
 
+    void RecordUpdateTime()
+    {
+        _soRepository._dtUpdateTime = DateTime.Now;
+    }
+
     public void OnClickButton()
     {
         SetOutputField(true);
 
-        _txtName.text = $"Your Name is {PlayerPrefs.GetString("name")}";
-        _txtAge.text = $"your age is {PlayerPrefs.GetInt("age")}";
-        _txtHeight.text = $"Your Height is {PlayerPrefs.GetFloat("height")}";
+        _txtName.text = $"Your Name is {_soRepository._sName}";
+        _txtAge.text = $"your age is {_soRepository._nAge}";
+        _txtHeight.text = $"Your Height is {_soRepository._fHeight}";
+        _txtUpdateTime.text = $"Last update time is {_soRepository._dtUpdateTime.ToString("yyyy-MM-dd HH:mm:ss")}";
     }
 
     public void OnClickClear()
     {
-        PlayerPrefs.DeleteAll();
+        _soRepository.Initialize();
     }
 }
