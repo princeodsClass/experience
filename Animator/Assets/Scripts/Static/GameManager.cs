@@ -166,4 +166,18 @@ public class GameManager : MonoBehaviour
 
 		return _scores;
 	}
+
+	public static void Log(string msg, string color = "white")
+	{
+#if DEBUG || DEVELOPMENT_BUILD
+		Debug.Log($"<color={color}>{msg}</color>");
+#endif
+	}
+
+	public static void Log(string titleColor, string title, string msgColor, string msg)
+	{
+#if DEBUG || DEVELOPMENT_BUILD
+		Debug.Log($"<color={titleColor}>[{title}]</color> : <color={msgColor}>{msg}</color>");
+#endif
+	}
 }

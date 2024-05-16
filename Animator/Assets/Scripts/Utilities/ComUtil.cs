@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class ComUtil
@@ -22,5 +23,42 @@ public static class ComUtil
 			if (null != tfChild.gameObject)
 				GameObject.Destroy(tfChild.gameObject);
 		}
+	}
+
+	public static string[] SplitCsvLine(string line)
+	{
+		bool inQuotes = false;
+		var columns = new List<string>();
+		var currentColumn = "";
+
+		foreach (char c in line)
+		{
+			if (c == '"')
+			{
+				inQuotes = !inQuotes;
+			}
+			else if (c == ',' && !inQuotes)
+			{
+				columns.Add(currentColumn.Trim('"'));
+				currentColumn = "";
+			}
+			else
+			{
+				currentColumn += c;
+			}
+		}
+
+		columns.Add(currentColumn.Trim('"'));
+
+		return columns.ToArray();
+	}
+
+	public static string[] DivideString(string word)
+	{
+		char[] tok = new char[1] { '|' };
+
+		string[] arrWord = word.Split(tok);
+
+		return arrWord;
 	}
 }
